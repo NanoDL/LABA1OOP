@@ -1,0 +1,13 @@
+﻿  LABA1OOP.cpp
+D:\code\LABA1OOP\LABA1OOP\LABA1OOP.cpp(55,22): warning C4244: инициализация: преобразование "_Rep" в "long", возможна потеря данных
+          with
+          [
+              _Rep=__int64
+          ]
+D:\code\LABA1OOP\LABA1OOP\LABA1OOP.cpp(92,22): warning C4244: инициализация: преобразование "_Rep" в "long", возможна потеря данных
+          with
+          [
+              _Rep=__int64
+          ]
+D:\code\LABA1OOP\LABA1OOP\LABA1OOP.cpp(308,29): warning C4101: i: неиспользованная локальная переменная
+  LABA1OOP.vcxproj -> D:\code\LABA1OOP\x64\Debug\LABA1OOP.exe
