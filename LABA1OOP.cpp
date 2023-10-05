@@ -11,6 +11,7 @@
 
 #include <thread>
 #include <vector>
+#include <algorithm>
 #include <chrono>
 #include <stdlib.h> // нужен для вызова функций rand(), srand()
 #include <time.h> // нужен для вызова функции time()
@@ -197,16 +198,14 @@ class Line {
             std::cout << std::chrono::duration<double>(timeEnd - timeStart).count();*/
 
             if (std::chrono::duration<double>(timeEnd - timeStart).count() >= speed){
+
             /*if ( ( ((double)(end - start)) / CLOCKS_PER_SEC) >= speed) {*/
          
                 std::vector<Symbol>::iterator begin = line.begin();
                 std::vector<Symbol>::iterator end = line.end();
 
                 if (x < maxX-2  && !deleting) {
-                    if (x >= length) {
-                        cur.gotoxy(x - length, y + ((x - length) % 2));
-                        printf_s(" ");
-                    }
+                    
                     cur.gotoxy(x, y + (x % 2));
                     end--;
                     (*end).getSymbol();
@@ -216,7 +215,10 @@ class Line {
 
                     begin = line.begin();
                     end = line.end();
-
+                    if (x >= length) {
+                        cur.gotoxy(x - length, y + ((x - length) % 2));
+                        printf_s(" ");
+                    }
                     x += 1;
                 }
                 else {
@@ -246,6 +248,10 @@ class Line {
 };
 
 class Manager {
+
+   
+   
+    
     Cursor cur;
     int freq;
     int curFreq;
@@ -260,10 +266,11 @@ class Manager {
 
     int leftLines;
   
-    int kolXUI=0;
     double curTmp;
     std::chrono::time_point<std::chrono::steady_clock> timeEnd, timeStart,time1,time2;
 
+
+    std::vector<double> arrChances;
    /* auto timeStart;
     auto timeEnd;*/
 
@@ -275,84 +282,87 @@ class Manager {
     public:        
 
         void start() {
-            tmp = (freq / static_cast<double>(1000));
-            curTmp = tmp;
+            using namespace std;
+            using namespace std::this_thread;
+            using namespace std::chrono;
+            timeStart = std::chrono::steady_clock::now();
+            timeEnd = std::chrono::steady_clock::now();
+            for (size_t i = 0; i < freq; i++)
+                {
+                 sleep_for(milliseconds(1));
+                 chance = cur.GetRandomDouble((double)0, (double)1);
+                 arrChances.push_back(chance);
+                 cout << " " <<arrChances[i];
+                }
+             std::sort(begin(arrChances), end(arrChances));
+            
+
             while (true) {
 
 
-                    curFreq = cur.GetRandomNumber(0, 1);
-                    chance = cur.GetRandomDouble((double)0, (double)1);
-                   
-                    timeEnd = std::chrono::steady_clock::now();
-                    
-                   /* auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(timeEnd - timeStart);*/
-                
-                 
-                  
-                    
-                    auto duration2 = std::chrono::duration_cast<std::chrono::milliseconds>(timeEnd-time1);
-                    
-                    std::chrono::duration<double> duration1 = std::chrono::duration_cast<std::chrono::milliseconds>(timeEnd - timeStart);
+         
+                    std::chrono::duration<double> duration2 = std::chrono::duration_cast<std::chrono::milliseconds>(timeEnd-timeStart);
+                    if (!arrChances.empty()) {
+                        auto begin = arrChances.begin();
+                        if (duration2.count() >= *begin) {
 
-                   
+                            arrChances.erase(begin);
+                            vectLine.push_back(new Line(length, speed, 100, 25));
 
-
-                    if (/*curFreq != 0 && */chance < curTmp && leftLines >0) {
-                       time1 = std::chrono::steady_clock::now();
-                       
-                       cur.gotoxy(10, 1);
-                       std::cout << curTmp;
-
-                        
-                    
-                        int i;
-
-                        /*for (i = 0; i < curFreq; i++) {*/
-                            vectLine.push_back( new Line(length, speed, 100 , 25));
-                        /*}*/
-                        leftLines -= 1;
-                  
-                        curTmp = tmp;
-                    } else {
-                        
-                        std::chrono::duration<double> duration1 = std::chrono::duration_cast<std::chrono::milliseconds>(timeEnd - timeStart);
-                        
-                        if (duration1.count() > 1.0) {
-
-                          
-
-                            timeStart = std::chrono::steady_clock::now();
-                            
-                            int i;
-                            for (i = 0; i < leftLines; i++) {
-                                vectLine.insert(vectLine.end(), new Line(length, speed, 100 , 25));
-                            }
-
-                            leftLines = freq;
-           
-                            
-                            curTmp = tmp;
                         }
-                    
                     }
-                
-            
-                
+                    timeEnd = std::chrono::steady_clock::now();
+                    duration2 = std::chrono::duration_cast<std::chrono::milliseconds>(timeEnd - timeStart);
+                    //time1 = std::chrono::steady_clock::now();
+                    if (duration2.count() > 1) {
+                        timeStart = std::chrono::steady_clock::now();
+                        for (size_t i = 0; i < freq; i++)
+                        {
+
+                            chance = cur.GetRandomDouble((double)0, (double)1);
+
+                            arrChances.push_back(chance);
+
+                        }
+                        std::sort(begin(arrChances), end(arrChances));
+                    }
+                    /*time2 = std::chrono::steady_clock::now();
+                    duration2 = std::chrono::duration_cast<std::chrono::milliseconds>(time2 - time1);
+                    cur.gotoxy(50, 1);
+                    cout << "XUI  " << duration2.count();*/
 
 
-                    cur.gotoxy(70, 1);
-                            std::cout << "Размер вектора: "<< vectLine.size();
-                for (auto it = vectLine.begin(); it < vectLine.end() ;) {
+                    duration2 = std::chrono::duration_cast<std::chrono::milliseconds>(timeEnd - timeStart);
+
+
+
+
+
                     
-                    if ((*it)->isDeleted()) {
-                        it = vectLine.erase(it);
-                    }
-                    else {
-                        (*it)->Move();
-                        ++it;
-                    }
-                }
-            
+
+                    timeEnd = std::chrono::steady_clock::now();
+                
+                     cur.gotoxy(50, 1);
+                     cout << "Размер вектора  " << vectLine.size();
+                        if (!vectLine.empty()) {
+                            for (auto it = vectLine.begin(); it < vectLine.end();) {
+
+                                if ((*it)->isDeleted()) {
+                                    delete* it;
+                                    it = vectLine.erase(it);
+                                }
+                                else {
+                                    (*it)->Move();
+                                    ++it;
+                                }
+                            }
+                        }
+
+                 /*   if (arrChances.size() == freq) {
+                        vectLine.insert(vectLine.begin(), freq, new Line(length, speed, 100, 25));
+                        arrChances.clear();
+                    }*/
+
 
             }
         }
