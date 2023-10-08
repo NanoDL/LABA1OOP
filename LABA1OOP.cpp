@@ -184,8 +184,8 @@ class Line {
 	bool deleted;
 public:
 	int i = 0;
-	int x;
-	int y;
+	int x, _x;
+	int y, _y;
 
 	int maxX;
 	int maxY;
@@ -220,9 +220,20 @@ public:
 
 			if (x < maxX && !deleting) {
 				if (x >= length) {
-					cur.gotoxy(x - length, y + ((x - length ) % 2));
+					_x = x - length;
+					_y = y + ((x - length) % 2);
+					cur.gotoxy(_x ,_y );
 					printf_s(" ");
+
+					for (auto it = line.begin(); it <= line.end() - 2; it++)
+					{
+						++_x;
+						
+						cur.gotoxy(_x, y+(_x%2));
+						it->getSymbol();
+					}
 				}
+
 				cur.gotoxy(x, y + (x % 2));
 				--end;
 				(*end).getSymbol();
@@ -238,7 +249,7 @@ public:
 			else {
 				if (!deleting) {
 					deleting = true;
-					x -= length + 1;
+					x -= length;
 				}
 				cur.gotoxy(x, y + (x % 2));
 				printf_s(" ");
@@ -321,7 +332,7 @@ public:
 				if (duration2.count() >= *begin) {
 
 					arrChances.erase(begin);
-					vectLine.push_back(new Line(length, speed, epileps, 120, 25));
+					vectLine.push_back(new Line(length, speed, epileps, conSize.getConsoleX(), conSize.getConsoleY()));
 
 				}
 			}
