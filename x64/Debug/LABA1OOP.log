@@ -1,16 +1,4 @@
-﻿  LABA1OOP.cpp
-D:\code\LABA1OOP\LABA1OOP\LABA1OOP.cpp(67,12): warning C4244: инициализация: преобразование "_Rep" в "long", возможна потеря данных
-          with
-          [
-              _Rep=__int64
-          ]
-D:\code\LABA1OOP\LABA1OOP\LABA1OOP.cpp(104,12): warning C4244: инициализация: преобразование "_Rep" в "long", возможна потеря данных
-          with
-          [
-              _Rep=__int64
-          ]
-D:\code\LABA1OOP\LABA1OOP\LABA1OOP.cpp(405,11): warning C4473: "scanf_s": передано недостаточно аргументов для строки формата
-D:\code\LABA1OOP\LABA1OOP\LABA1OOP.cpp(405,11): message : заполнители и их параметры ожидают переменное число аргументов в количестве 2, но было предоставлено 1
-D:\code\LABA1OOP\LABA1OOP\LABA1OOP.cpp(405,11): message : отсутствующий вариативный аргумент "2" требуется для строки форматирования "%s"
-D:\code\LABA1OOP\LABA1OOP\LABA1OOP.cpp(405,11): message : этот аргумент используется в качестве размера буфера
+﻿  Explosion.cpp
+  Figure.cpp
+  Создание кода...
   LABA1OOP.vcxproj -> D:\code\LABA1OOP\x64\Debug\LABA1OOP.exe
