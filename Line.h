@@ -2,15 +2,15 @@
 #include "cs.h"
 #include "Symbol.h"
 #include "Cursor.h"
-class Line {
-
+#include "Figure.h"
+class Line : public Figure{
+	bool success;
 	int color = 2;
 	char epileps;
 	std::vector<Symbol> line;
 	Cursor cur;
 	int length;
 	double speed;
-
 
 	std::chrono::time_point<std::chrono::system_clock> timeEnd, timeStart;
 
@@ -20,17 +20,19 @@ class Line {
 
 public:
 	int i = 0;
-	int x, _x;
-	int y, _y;
+	int _x;
+	int _y;
 
-	int maxX;
-	int maxY;
 
 public:
 	Line(int , double , char , int, int , cs&);
 	void tryMove();
 	bool isDeleted();
 	bool isDeleting();
+	bool isLineMove();
+
 	int getX();
 	int getY();
+	void resetSuccess();
+	void lineExp();
 };

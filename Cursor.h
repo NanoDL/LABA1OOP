@@ -7,5 +7,5 @@ public:
 	int GetRandomNumber(int, int);
 	void SetColor(int, int);
 	double GetRandomDouble(double, double);
-	int GetRandomDouble2(double, double);
+	int GetRandomInt(int, int);
 };

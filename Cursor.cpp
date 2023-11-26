@@ -96,7 +96,7 @@
 		return c;
 	}
 
-	int Cursor::GetRandomDouble2(double a, double b) {
+	int Cursor::GetRandomInt(int a, int b) {
 
 		namespace sc = std::chrono;
 		auto time = sc::system_clock::now(); // get the current time

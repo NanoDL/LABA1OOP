@@ -8,5 +8,6 @@ class Symbol {
 	public:
 		Symbol(int);
 		void getSymbol();
+		void randColor();
 };
 

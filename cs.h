@@ -6,7 +6,7 @@ class cs
 	int y;
 public:
 	cs();
-	std::vector < std::vector< unsigned short> > matr;
+	std::vector<std::vector< unsigned short>> matr;
 	int getConsoleX();
 	int getConsoleY();
 	void drawMatr();

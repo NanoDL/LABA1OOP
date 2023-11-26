@@ -23,5 +23,10 @@
 	}
 	void Symbol::getSymbol() {
 		cur.SetColor(color, 0);
+		symbol = (char)cur.GetRandomNumber(33, 126);
 		printf_s("%c", symbol);
+	}
+
+	void Symbol::randColor() {
+		color = cur.GetRandomNumber(1, 15);
 	}

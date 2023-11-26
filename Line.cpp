@@ -18,7 +18,7 @@
 #include "cs.h"
 #include "Line.h"
 
-	Line::Line(int _length, double _speed, char _epileps, int _maxX, int _maxY, cs& _console) : length(_length), speed(_speed), epileps(_epileps), maxX(_maxX), maxY(_maxY), console(_console) {
+	Line::Line(int _length, double _speed, char _epileps, int _maxX, int _maxY, cs& _console) : length(_length), speed(_speed), epileps(_epileps), console(_console), Figure(0,0, _maxX, _maxY) {
 		speed = (double)(1.0 / speed);
 		//deleting = 0;
 		deleted = false;
@@ -27,7 +27,7 @@
 		_x = 0;
 		_y = 0;
 		if (epileps == 'Y' or epileps == 'y') {
-			color = cur.GetRandomDouble2(1, 15);
+			color = cur.GetRandomInt(1, 15);
 		}
 		for (int i = 0; i < length; i++) {
 			line.push_back(Symbol(color));
@@ -38,6 +38,10 @@
 	};
 
 	void Line::tryMove() {  //TryMove
+		if (length == 0) {
+			deleted = true;
+			return;
+		}
 		timeEnd = std::chrono::system_clock::now();
 
 		if (std::chrono::duration<double>(timeEnd - timeStart).count() >= speed && !deleted) {
@@ -58,6 +62,7 @@
 					cur.gotoxy(_x, _y);
 					printf_s(" ");
 				}
+
 			}
 
 
@@ -70,6 +75,7 @@
 				console.matr[x][y + (x % 2)]++;
 				--end;
 				(*end).getSymbol();
+				success = true;
 			}
 			line.erase(begin);
 			line.push_back(Symbol(color));
@@ -97,5 +103,31 @@
 	}
 	int Line::getY() {
 		return y;
+	}
+
+	bool Line::isLineMove() {
+		return success;
+	}
+
+	void Line::resetSuccess() {
+		success = false;
+	}
+	void Line::lineExp() {
+		if (x >= length) {
+		_x = x - length;
+		_y = y + ((x - length) % 2);
+
+		//if (x < maxX) {
+		console.matr[_x][_y]--;
+		//}
+		
+
+		if (console.matr[_x][_y] == 0) {
+			cur.gotoxy(_x, _y);
+			printf_s(" ");
+		}
+	}
+		length--;
+
 	}
 

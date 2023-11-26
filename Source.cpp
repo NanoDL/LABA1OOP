@@ -24,7 +24,6 @@
 int main() {
 	setlocale(LC_ALL, "Russian");
 	Manager manag = Manager(1,1,'N',1);
-	
 	Cursor cur;
 	cur.hidecursor();
 	manag.setLength();
@@ -32,6 +31,10 @@ int main() {
 	manag.setSpeed();
 	manag.setFreq();
 	manag.setEpileps();
+	manag.setFreqExp();
+	manag.setMinRad();
+	manag.setMaxRad();
+	manag.setMode();
 	system("cls");
 	manag.start();
 
