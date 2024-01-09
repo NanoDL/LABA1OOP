@@ -144,16 +144,18 @@
     <ClCompile Include="Explosion.cpp" />
     <ClCompile Include="Figure.cpp" />
     <ClCompile Include="Line.cpp" />
-    <ClCompile Include="List.cpp" />
     <ClCompile Include="Manager.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="Symbol.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ArrayList.h" />
     <ClInclude Include="cs.h" />
     <ClInclude Include="Cursor.h" />
+    <ClInclude Include="Element.h" />
     <ClInclude Include="Explosion.h" />
     <ClInclude Include="Figure.h" />
+    <ClInclude Include="iterator.h" />
     <ClInclude Include="Line.h" />
     <ClInclude Include="List.h" />
     <ClInclude Include="Manager.h" />

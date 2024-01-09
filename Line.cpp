@@ -30,7 +30,8 @@
 			color = cur.GetRandomInt(1, 15);
 		}
 		for (int i = 0; i < length; i++) {
-			line.push_back(Symbol(color));
+
+			line.push_back(new Symbol(color));
 			/*Sleep(1);*/
 		}
 
@@ -46,8 +47,8 @@
 
 		if (std::chrono::duration<double>(timeEnd - timeStart).count() >= speed && !deleted) {
 
-			std::vector<Symbol>::iterator begin = line.begin();
-			std::vector<Symbol>::iterator end = line.end();
+			/*std::vector<Symbol>::iterator*/ auto begin = line[0];
+			/*std::vector<Symbol>::iterator*/auto end = line[length-1];
 
 			if (x >= length) {
 				_x = x - length;
@@ -73,12 +74,14 @@
 			if (x < maxX)
 			{
 				console.matr[x][y + (x % 2)]++;
-				--end;
-				(*end).getSymbol();
+
+
+				
+				end->getSymbol();
 				success = true;
 			}
-			line.erase(begin);
-			line.push_back(Symbol(color));
+			line.erase(0);
+			line.push_back(new Symbol(color));
 			x++;
 			if (x - length >= maxX) {
 				deleted = true;

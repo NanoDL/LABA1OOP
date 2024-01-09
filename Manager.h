@@ -3,6 +3,8 @@
 #include "Line.h"
 #include "cs.h"
 #include "Explosion.h"
+#include "ArrayList.h"
+
 class Manager
 {
 
@@ -20,8 +22,10 @@ class Manager
 	int length;
 	char epileps;
 
-	std::vector<Line*> vectLine;
-	std::vector<Explosion*> vectExp;
+	ArrayList<Line*> vectLine;
+	ArrayList<Explosion*> vectExp;
+	//std::vector<Line*> vectLine;
+	//std::vector<Explosion*> vectExp;
 	std::chrono::time_point<std::chrono::steady_clock> timeEnd, timeStart;
 
 	std::vector<double> arrChances;

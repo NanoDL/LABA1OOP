@@ -3,11 +3,13 @@
 #include "Symbol.h"
 #include "Cursor.h"
 #include "Figure.h"
+#include "ArrayList.h"
 class Line : public Figure{
 	bool success;
 	int color = 2;
 	char epileps;
-	std::vector<Symbol> line;
+	ArrayList<Symbol*> line;
+	//std::vector<Symbol> line;
 	Cursor cur;
 	int length;
 	double speed;
@@ -36,3 +38,5 @@ public:
 	void resetSuccess();
 	void lineExp();
 };
+
+

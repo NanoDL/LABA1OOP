@@ -13,7 +13,6 @@
 #include <stdlib.h> // нужен для вызова функций rand(), srand()
 #include <time.h> // нужен для вызова функции time()
 
-
 #include "Manager.h"
 #include "Line.h"
 #include "cs.h"
@@ -80,44 +79,78 @@ void Manager::start() {
 
 
 		if (!vectLine.empty()) {
-			for (auto it = vectLine.begin(); it < vectLine.end();) {
-
-				if ((*it)->isDeleted()) {
-					delete* it;
-					it = vectLine.erase(it);
+			for (size_t i = 0; i < vectLine.size(); )
+			{
+				if (vectLine[i]->isDeleted()) {
+					
+					vectLine.erase(i);
 				}
 				else {
 
-					if ((*it)->isLineMove())
+					if (vectLine[i]->isLineMove())
 					{
-						if (cur.GetRandomInt(1, 1000) <= freqExp && (*it)->getX() < conSize.getConsoleX()) {
-							vectExp.push_back(new Explosion(minRad, maxRad, (*it)->getX(), (*it)->getY(), conSize.getConsoleX(), conSize.getConsoleY() - 2,mode));
+						if (cur.GetRandomInt(1, 1000) <= freqExp && vectLine[i]->getX() < conSize.getConsoleX()) {
+							vectExp.push_back(new Explosion(minRad, maxRad, vectLine[i]->getX(), vectLine[i]->getY(), conSize.getConsoleX(), conSize.getConsoleY() - 2, mode));
 							countExp++;
-							(*it)->lineExp();
+							vectLine[i]->lineExp();
 						}
-						(*it)->resetSuccess();
+						vectLine[i]->resetSuccess();
 					}
-					(*it)->tryMove();
+					vectLine[i]->tryMove();
+
+					i++;
+					
+				}
+			}
+			/*for (auto it = vectLine.begin(); it != vectLine.end();) {
+
+				if ((*it).isDeleted()) {
+					delete it;
+					vectLine.erase(it);
+				}
+				else {
+
+					if ((*it).isLineMove())
+					{
+						if (cur.GetRandomInt(1, 1000) <= freqExp && (*it).getX() < conSize.getConsoleX()) {
+							vectExp.push_back(new Explosion(minRad, maxRad, (*it).getX(), (*it).getY(), conSize.getConsoleX(), conSize.getConsoleY() - 2,mode));
+							countExp++;
+							(*it).lineExp();
+						}
+						(*it).resetSuccess();
+					}
+					(*it).tryMove();
 
 
 					++it;
 				}
-			}
+			}*/
 		}
 		//cur.gotoxy(0, 0);
 		//printf_s("%d", vectExp.size());
 		if (!vectExp.empty()) {									//пробежка по вектору из взрывов
-			for (auto at = vectExp.begin(); at < vectExp.end();) {
+			for (size_t i = 0; i < vectExp.size();) {
 
-				if ((*at)->isDeleted()) {
-					delete* at;
-					at = vectExp.erase(at);
+				if (vectExp[i]->isDeleted()) {
+					
+					vectExp.erase(i);
 				}
 				else {
-					(*at)->tryMove();
-					++at;
+					vectExp[i]->tryMove();
+					i++;
 				}
 			}
+			//for (auto at = vectExp.begin(); at != vectExp.end();) {
+
+			//	if ((*at).isDeleted()) {
+			//		delete at;
+			//		//at = vectExp.erase(at);
+			//	}
+			//	else {
+			//		(*at).tryMove();
+			//		++at;
+			//	}
+			//}
 		}
 
 	}
